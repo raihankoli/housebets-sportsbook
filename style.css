@@ -682,3 +682,36 @@ button {
   border-radius: 20px;
   font-size: 12px;
 }
+
+.bet-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 15px 0;
+}
+
+.bet-tab {
+  padding: 9px 18px;
+  background: #18222c;
+  color: #aab5c0;
+  border: 1px solid #303b46;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.bet-tab.active {
+  background: #20d98b;
+  color: #07130e;
+  border-color: #20d98b;
+}
+
+.settle-bet {
+  margin-top: 12px;
+  padding: 9px 14px;
+  background: #263b32;
+  color: #20d98b;
+  border: 1px solid #20d98b;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 700;
+}
