@@ -108,14 +108,20 @@
 
   <div class="panel-card">
     <div class="section-heading">
-      <h3>Open Bets</h3>
+      <div class="bet-tabs">
+  <button class="bet-tab active" data-tab="open">Open</button>
+  <button class="bet-tab" data-tab="settled">Settled</button>
+      </div>
       <span id="open-bet-count">0</span>
     </div>
 
     <div id="open-bets-list" class="empty-state">
-      <h3>No open bets yet</h3>
-      <p>Your placed bets will appear here.</p>
-    </div>
+  <h3>No open bets yet</h3>
+  <p>Your placed bets will appear here.</p>
+</div>
+
+<div id="settled-bets-list" hidden>
+</div>
   </div>
      </section>
       </main>
