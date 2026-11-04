@@ -119,5 +119,18 @@ openBetsList.innerHTML = `
 openBetCount.textContent = "1";
 
 betMessage.textContent = "Demo bet placed successfully!";
+
+selection = null;
+slipCount.textContent = "0";
+slipSelections.hidden = false;
+slipSelections.style.display = "";
+slipDetails.hidden = true;
+stakeInput.value = "";
+potentialReturn.textContent = "0.00 USDT";
+oddsChangeMessage.textContent = "";
+oddsChangeMessage.style.display = "none";
+
+oddsButtons.forEach(item => item.classList.remove("selected"));
+
   });
 });
