@@ -3,14 +3,125 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#10131b">
+  <meta name="theme-color" content="#0b0e13">
   <title>Housebets Sportsbook</title>
-<link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <h1>Housebets Sportsbook</h1>
-  <p>Sportsbook prototype coming soon.</p>
+  <div class="app">
+
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">H</span>
+        <span>HOUSEBETS</span>
+      </div>
+
+      <div class="topbar-actions">
+        <button class="icon-btn">⌕</button>
+        <button class="login-btn">Log in</button>
+        <button class="signup-btn">Join now</button>
+      </div>
+    </header>
+
+    <div class="main-layout">
+
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <p class="sidebar-label">MENU</p>
+          <a class="nav-item active" href="#home">⌂ <span>Sports Home</span></a>
+          <a class="nav-item" href="#live">◉ <span>Live</span></a>
+          <a class="nav-item" href="#football">⚽ <span>Football</span></a>
+          <a class="nav-item" href="#bets">▤ <span>My Bets</span></a>
+        </div>
+
+        <div class="sidebar-section">
+          <p class="sidebar-label">SPORTS</p>
+          <a class="nav-item" href="#football">⚽ <span>Football</span></a>
+          <a class="nav-item" href="#basketball">🏀 <span>Basketball</span></a>
+          <a class="nav-item" href="#tennis">🎾 <span>Tennis</span></a>
+          <a class="nav-item" href="#cricket">🏏 <span>Cricket</span></a>
+        </div>
+      </aside>
+
+      <main class="content">
+
+        <section class="welcome-section" id="home">
+          <div>
+            <p class="eyebrow">HOUSEBETS SPORTSBOOK</p>
+            <h1>Every moment.<br><span>Every game.</span></h1>
+            <p class="welcome-copy">Follow the action and explore today's sporting events.</p>
+          </div>
+          <div class="welcome-ball">⚽</div>
+        </section>
+
+        <section class="section" id="live">
+          <div class="section-heading">
+            <h2><span class="live-dot"></span> Live now</h2>
+            <a href="#live">View all →</a>
+          </div>
+
+          <div class="empty-state">
+            <div class="empty-icon">◉</div>
+            <h3>No live events right now</h3>
+            <p>Check the upcoming fixtures below.</p>
+          </div>
+        </section>
+
+        <section class="section" id="football">
+          <div class="section-heading">
+            <h2>Starting soon</h2>
+            <a href="#football">View all →</a>
+          </div>
+
+          <div class="match-card">
+            <div class="competition">ENGLISH PREMIER LEAGUE</div>
+            <div class="match-teams">
+              <div class="team">
+                <span class="team-badge">ARS</span>
+                <span>Arsenal</span>
+              </div>
+              <span class="versus">VS</span>
+              <div class="team">
+                <span class="team-badge">BHA</span>
+                <span>Brighton</span>
+              </div>
+            </div>
+            <div class="match-footer">
+              <span>Sample fixture</span>
+              <span>Match winner</span>
+            </div>
+            <div class="odds-row">
+              <button class="odd-btn">1 <strong>1.85</strong></button>
+              <button class="odd-btn">X <strong>3.60</strong></button>
+              <button class="odd-btn">2 <strong>4.20</strong></button>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <aside class="right-panel">
+        <div class="panel-card">
+          <h3>Bet Slip</h3>
+          <div class="panel-empty">
+            <span>▤</span>
+            <p>Your bet slip is empty</p>
+            <small>Select odds to add a bet.</small>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+
+    <nav class="mobile-nav">
+      <a href="#home">⌂<span>Home</span></a>
+      <a href="#live">◉<span>Live</span></a>
+      <a href="#football">⚽<span>Sports</span></a>
+      <a href="#bets">▤<span>My Bets</span></a>
+    </nav>
+
+  </div>
 
   <script src="script.js"></script>
 </body>
