@@ -46,6 +46,8 @@ document.addEventListener("DOMContentLoaded", () => {
     slipSelections.hidden = true;
     slipSelections.style.display = "none";
     slipDetails.hidden = false;
+    oddsChangeMessage.style.display = "none";
+oddsChangeMessage.textContent = "";
 
     slipList.innerHTML = `
       <div class="slip-selection">
