@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const slipSelections = document.getElementById("slip-selections");
   const slipDetails = document.getElementById("slip-details");
   const slipList = document.getElementById("slip-list");
+  const oddsChangeMessage = document.getElementById("odds-change-message");
   const stakeInput = document.getElementById("stake");
   const potentialReturn = document.getElementById("potential-return");
   const placeBetButton = document.getElementById("place-bet");
