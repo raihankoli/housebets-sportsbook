@@ -35,6 +35,9 @@ if (previousOdds !== null && previousOdds !== odds) {
       oddsButtons.forEach(item => item.classList.remove("selected"));
       button.classList.add("selected");
 
+   if (previousOdds !== null && previousOdds !== odds) {
+  betMessage.textContent = "";
+    }  
       selection = {
         match: "Arsenal vs Brighton",
         market: "Match Winner",
