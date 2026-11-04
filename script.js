@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <strong>${selection.match}</strong>
         <p>${selection.market}: ${selection.outcome}</p>
         <strong>Odds: ${selection.odds.toFixed(2)}</strong>
+        <button id="remove-selection" type="button">✕ Remove</button>
       </div>
     `;
 
