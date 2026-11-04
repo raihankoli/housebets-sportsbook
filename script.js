@@ -1,3 +1,4 @@
+alert("JavaScript Loaded!");
 document.addEventListener("DOMContentLoaded", () => {
   const oddsButtons = document.querySelectorAll(".odd-btn");
   const slipCount = document.getElementById("slip-count");
