@@ -116,7 +116,10 @@ oddsChangeMessage.textContent = "";
       <button class="settle-bet" data-index="${index}">
   Settle Demo Bet
 </button>
-    </div>
+<button class="cashout-bet" data-index="${index}">
+  Cash Out Demo
+</button>
+</div>
   `).join("");
 
     document.querySelectorAll(".settle-bet").forEach(button => {
@@ -125,6 +128,19 @@ oddsChangeMessage.textContent = "";
     const bet = placedBets.splice(index, 1)[0];
 
     if (bet) {
+      settledBets.push(bet);
+      renderOpenBets();
+      renderSettledBets();
+    }
+  });
+});
+    document.querySelectorAll(".cashout-bet").forEach(button => {
+  button.addEventListener("click", () => {
+    const index = Number(button.dataset.index);
+    const bet = placedBets.splice(index, 1)[0];
+
+    if (bet) {
+      bet.status = "Cashed Out";
       settledBets.push(bet);
       renderOpenBets();
       renderSettledBets();
