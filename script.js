@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const openBetsList = document.getElementById("open-bets-list");
   const openBetCount = document.getElementById("open-bet-count");
   let selection = null;
+  let placedBets = [];
 
   document.querySelectorAll(".nav-item, .mobile-nav a").forEach(link => {
     link.addEventListener("click", () => {
@@ -82,6 +83,22 @@ oddsChangeMessage.textContent = "";
     calculateReturn();
   }
 
+  function renderOpenBets() {
+  openBetsList.classList.remove("empty-state");
+
+  openBetsList.innerHTML = placedBets.map((bet, index) => `
+    <div class="slip-selection">
+      <strong>${bet.match}</strong>
+      <p>${bet.market}: ${bet.outcome}</p>
+      <p>Odds: ${bet.odds.toFixed(2)}</p>
+      <p>Stake: ${bet.stake.toFixed(2)} USDT</p>
+      <strong>Potential Return: ${bet.potentialReturn.toFixed(2)} USDT</strong>
+      <p style="color:#20d98b;">● Open</p>
+    </div>
+  `).join("");
+
+  openBetCount.textContent = String(placedBets.length);
+}
   function calculateReturn() {
     const stake = Number(stakeInput.value);
     const result = selection && stake > 0
@@ -103,20 +120,16 @@ oddsChangeMessage.textContent = "";
       return;
     }
 
-    openBetsList.classList.remove("empty-state");
+    placedBets.push({
+  match: selection.match,
+  market: selection.market,
+  outcome: selection.outcome,
+  odds: selection.odds,
+  stake: stake,
+  potentialReturn: stake * selection.odds
+});
 
-openBetsList.innerHTML = `
-  <div class="slip-selection">
-    <strong>${selection.match}</strong>
-    <p>${selection.market}: ${selection.outcome}</p>
-    <p>Odds: ${selection.odds.toFixed(2)}</p>
-    <p>Stake: ${stake.toFixed(2)} USDT</p>
-    <strong>Potential Return: ${(stake * selection.odds).toFixed(2)} USDT</strong>
-    <p style="color:#20d98b;">● Open</p>
-  </div>
-`;
-
-openBetCount.textContent = "1";
+renderOpenBets();
 
 betMessage.textContent = "Demo bet placed successfully!";
 
