@@ -599,3 +599,18 @@ button {
 [hidden] {
   display: none !important;
 }
+#remove-selection {
+  float: right;
+  background: transparent;
+  color: #ff6b6b;
+  border: 1px solid #3a3035;
+  border-radius: 6px;
+  padding: 5px 9px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+#remove-selection:hover {
+  background: #352329;
+  border-color: #ff6b6b;
+}
