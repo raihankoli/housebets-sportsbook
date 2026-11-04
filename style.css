@@ -628,3 +628,26 @@ button {
   background: #352329;
   border-color: #ff6b6b;
 }
+
+#place-bet {
+  width: 100%;
+  padding: 15px;
+  margin-top: 8px;
+  background: #20d98b;
+  color: #07130e;
+  border: none;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+#place-bet:hover {
+  background: #35efa0;
+  transform: translateY(-1px);
+}
+
+#place-bet:active {
+  transform: scale(0.98);
+}
