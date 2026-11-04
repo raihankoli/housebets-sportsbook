@@ -651,3 +651,15 @@ button {
 #place-bet:active {
   transform: scale(0.98);
 }
+
+#odds-change-message {
+  display: none;
+  margin-top: 12px;
+  padding: 10px;
+  background: #332b1b;
+  border: 1px solid #8a6b2d;
+  border-radius: 8px;
+  color: #f5c96b;
+  font-size: 12px;
+  line-height: 1.5;
+    }
