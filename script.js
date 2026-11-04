@@ -23,6 +23,13 @@ document.addEventListener("DOMContentLoaded", () => {
   oddsButtons.forEach(button => {
     button.addEventListener("click", () => {
       const odds = Number(button.querySelector("strong").textContent);
+      const previousOdds = selection ? selection.odds : null;
+
+if (previousOdds !== null && previousOdds !== odds) {
+  oddsChangeMessage.style.display = "block";
+  oddsChangeMessage.textContent =
+    `Odds changed from ${previousOdds.toFixed(2)} to ${odds.toFixed(2)}.`;
+}
       const outcome = button.firstChild.textContent.trim();
 
       oddsButtons.forEach(item => item.classList.remove("selected"));
