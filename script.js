@@ -11,6 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let selection = null;
 
+  document.querySelectorAll(".nav-item, .mobile-nav a").forEach(link => {
+    link.addEventListener("click", () => {
+      document.querySelectorAll(".nav-item, .mobile-nav a")
+        .forEach(item => item.classList.remove("active"));
+      link.classList.add("active");
+    });
+  });
+
   oddsButtons.forEach(button => {
     button.addEventListener("click", () => {
       const odds = Number(button.querySelector("strong").textContent);
@@ -71,24 +79,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
     betMessage.textContent =
       "Demo only: Bet placement is not connected to a real betting service.";
-  });
-});.addEventListener("DOMContentLoaded", () => {
-  console.log("Housebets Sportsbook ready");
-
-  const navLinks = document.querySelectorAll(".nav-item, .mobile-nav a");
-
-  navLinks.forEach(link => {
-    link.addEventListener("click", () => {
-      navLinks.forEach(item => item.classList.remove("active"));
-      link.classList.add("active");
-    });
-  });
-
-  const oddsButtons = document.querySelectorAll(".odd-btn");
-
-  oddsButtons.forEach(button => {
-    button.addEventListener("click", () => {
-      button.classList.toggle("selected");
-    });
   });
 });
