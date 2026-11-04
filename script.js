@@ -9,7 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const potentialReturn = document.getElementById("potential-return");
   const placeBetButton = document.getElementById("place-bet");
   const betMessage = document.getElementById("bet-message");
-
+  const openBetsList = document.getElementById("open-bets-list");
+  const openBetCount = document.getElementById("open-bet-count");
   let selection = null;
 
   document.querySelectorAll(".nav-item, .mobile-nav a").forEach(link => {
