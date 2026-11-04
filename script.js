@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     slipCount.textContent = "1";
     slipSelections.hidden = true;
+    slipSelections.style.display = "none";
     slipDetails.hidden = false;
 
     slipList.innerHTML = `
