@@ -103,7 +103,21 @@ oddsChangeMessage.textContent = "";
       return;
     }
 
-    betMessage.textContent =
-      "Demo only: Bet placement is not connected to a real betting service.";
+    openBetsList.classList.remove("empty-state");
+
+openBetsList.innerHTML = `
+  <div class="slip-selection">
+    <strong>${selection.match}</strong>
+    <p>${selection.market}: ${selection.outcome}</p>
+    <p>Odds: ${selection.odds.toFixed(2)}</p>
+    <p>Stake: ${stake.toFixed(2)} USDT</p>
+    <strong>Potential Return: ${(stake * selection.odds).toFixed(2)} USDT</strong>
+    <p style="color:#20d98b;">● Open</p>
+  </div>
+`;
+
+openBetCount.textContent = "1";
+
+betMessage.textContent = "Demo bet placed successfully!";
   });
 });
