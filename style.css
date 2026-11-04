@@ -396,8 +396,9 @@ button {
     grid-template-columns: 190px minmax(0, 1fr);
   }
 
-  .right-panel {
-    display: none;
+.right-panel {
+  display: block;
+  margin-top: 20px;
   }
 }
 
