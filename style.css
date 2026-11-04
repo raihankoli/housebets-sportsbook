@@ -595,3 +595,7 @@ button {
   background: var(--green-dark);
   border-color: var(--green);
 }
+
+[hidden] {
+  display: none !important;
+}
