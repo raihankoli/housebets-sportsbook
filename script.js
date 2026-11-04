@@ -10,9 +10,29 @@ document.addEventListener("DOMContentLoaded", () => {
   const placeBetButton = document.getElementById("place-bet");
   const betMessage = document.getElementById("bet-message");
   const openBetsList = document.getElementById("open-bets-list");
+  const settledBetsList = document.getElementById("settled-bets-list");
+  document.querySelectorAll(".bet-tab").forEach(tab => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll(".bet-tab").forEach(item => {
+      item.classList.remove("active");
+    });
+
+    tab.classList.add("active");
+
+    if (tab.dataset.tab === "open") {
+      openBetsList.hidden = false;
+      settledBetsList.hidden = true;
+    } else {
+      openBetsList.hidden = true;
+      settledBetsList.hidden = false;
+      renderSettledBets();
+    }
+  });
+});
   const openBetCount = document.getElementById("open-bet-count");
   let selection = null;
   let placedBets = [];
+  let settledBets = [];
 
   document.querySelectorAll(".nav-item, .mobile-nav a").forEach(link => {
     link.addEventListener("click", () => {
@@ -93,11 +113,37 @@ oddsChangeMessage.textContent = "";
       <p>Odds: ${bet.odds.toFixed(2)}</p>
       <p>Stake: ${bet.stake.toFixed(2)} USDT</p>
       <strong>Potential Return: ${bet.potentialReturn.toFixed(2)} USDT</strong>
-      <p style="color:#20d98b;">● Open</p>
+      <button class="settle-bet" data-index="${index}">
+  Settle Demo Bet
+</button>
     </div>
   `).join("");
 
+    document.querySelectorAll(".settle-bet").forEach(button => {
+  button.addEventListener("click", () => {
+    const index = Number(button.dataset.index);
+    const bet = placedBets.splice(index, 1)[0];
+
+    if (bet) {
+      settledBets.push(bet);
+      renderOpenBets();
+      renderSettledBets();
+    }
+  });
+});
   openBetCount.textContent = String(placedBets.length);
+}
+  function renderSettledBets() {
+  settledBetsList.innerHTML = settledBets.map(bet => `
+    <div class="slip-selection">
+      <strong>${bet.match}</strong>
+      <p>${bet.market}: ${bet.outcome}</p>
+      <p>Odds: ${bet.odds.toFixed(2)}</p>
+      <p>Stake: ${bet.stake.toFixed(2)} USDT</p>
+      <p>Potential Return: ${bet.potentialReturn.toFixed(2)} USDT</p>
+      <p style="color:#20d98b;">● Settled</p>
+    </div>
+  `).join("");
 }
   function calculateReturn() {
     const stake = Number(stakeInput.value);
