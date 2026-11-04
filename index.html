@@ -102,13 +102,29 @@
       </main>
 
       <aside class="right-panel">
-        <div class="panel-card">
-          <h3>Bet Slip</h3>
-          <div class="panel-empty">
-            <span>▤</span>
-            <p>Your bet slip is empty</p>
-            <small>Select odds to add a bet.</small>
-          </div>
+        <div class="panel-card" id="bet-slip">
+  <h3>Bet Slip <span id="slip-count">0</span></h3>
+
+  <div id="slip-selections" class="panel-empty">
+    <span>▤</span>
+    <p>Your bet slip is empty</p>
+    <small>Select odds to add a bet.</small>
+  </div>
+
+  <div id="slip-details" hidden>
+    <div id="slip-list"></div>
+
+    <label for="stake">Stake (USDT)</label>
+    <input id="stake" type="number" min="0" step="0.01" placeholder="Enter stake">
+
+    <div class="slip-total">
+      <span>Potential return</span>
+      <strong id="potential-return">0.00 USDT</strong>
+    </div>
+
+    <button id="place-bet" class="signup-btn">Place bet</button>
+    <p id="bet-message"></p>
+  </div>
         </div>
       </aside>
 
