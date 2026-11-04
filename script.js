@@ -54,7 +54,17 @@ document.addEventListener("DOMContentLoaded", () => {
         <button id="remove-selection" type="button">✕ Remove</button>
       </div>
     `;
-
+    document.getElementById("remove-selection").addEventListener("click", () => {
+      selection = null;
+      slipCount.textContent = "0";
+      slipSelections.hidden = false;
+      slipSelections.style.display = "";
+      slipDetails.hidden = true;
+      stakeInput.value = "";
+      potentialReturn.textContent = "0.00 USDT";
+      betMessage.textContent = "";
+      oddsButtons.forEach(item => item.classList.remove("selected"));
+    });
     calculateReturn();
   }
 
