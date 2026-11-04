@@ -663,3 +663,22 @@ button {
   font-size: 12px;
   line-height: 1.5;
     }
+#bets {
+  margin-top: 35px;
+}
+
+#open-bets-list {
+  min-height: 150px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  padding: 20px;
+}
+
+#open-bet-count {
+  background: var(--green-dark);
+  color: var(--green);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
