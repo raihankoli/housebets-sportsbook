@@ -715,3 +715,18 @@ button {
   cursor: pointer;
   font-weight: 700;
 }
+
+.cashout-bet {
+  margin: 12px 0 0 8px;
+  padding: 9px 14px;
+  background: #263344;
+  color: #ffffff;
+  border: 1px solid #5b8ac5;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.cashout-bet:hover {
+  background: #354b65;
+}
