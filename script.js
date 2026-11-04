@@ -126,6 +126,7 @@ oddsChangeMessage.textContent = "";
   button.addEventListener("click", () => {
     const index = Number(button.dataset.index);
     const bet = placedBets.splice(index, 1)[0];
+    if (bet) bet.status = "Settled";
 
     if (bet) {
       settledBets.push(bet);
@@ -157,7 +158,7 @@ oddsChangeMessage.textContent = "";
       <p>Odds: ${bet.odds.toFixed(2)}</p>
       <p>Stake: ${bet.stake.toFixed(2)} USDT</p>
       <p>Potential Return: ${bet.potentialReturn.toFixed(2)} USDT</p>
-      <p style="color:#20d98b;">● Settled</p>
+      <p style="color:#20d98b;">● ${bet.status || "Settled"}</p>
     </div>
   `).join("");
 }
