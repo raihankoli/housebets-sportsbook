@@ -51,8 +51,7 @@ if (previousOdds !== null && previousOdds !== odds) {
   oddsChangeMessage.style.display = "block";
   oddsChangeMessage.textContent =
     `Odds changed from ${previousOdds.toFixed(2)} to ${odds.toFixed(2)}.`;
-}
-      const outcome = button.firstChild.textContent.trim();
+} const outcome = button.childNodes[0].textContent.trim();
 
       oddsButtons.forEach(item => item.classList.remove("selected"));
       button.classList.add("selected");
@@ -61,8 +60,12 @@ if (previousOdds !== null && previousOdds !== odds) {
   betMessage.textContent = "";
     }  
       selection = {
-        match: "Arsenal vs Brighton",
-        market: "Match Winner",
+        match: button.closest(".match-card, #match-details")
+  ? "Arsenal vs Brighton"
+  : "Arsenal vs Brighton",
+        market: button.closest(".market-card")
+  ? button.closest(".odds-row").previousElementSibling.textContent.trim()
+  : "Match Winner",
         outcome,
         odds
       };
