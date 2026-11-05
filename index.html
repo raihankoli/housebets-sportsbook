@@ -124,14 +124,14 @@
     </div>
   </div>
           <div class="market-tabs">
-  <button class="market-tab active">Popular</button>
-  <button class="market-tab">Goals</button>
-  <button class="market-tab">Halves</button>
-  <button class="market-tab">Handicaps</button>
-  <button class="market-tab">Goalscorers</button>
-  <button class="market-tab">Corners & Cards</button>
+  <button class="market-tab active" data-market-tab="popular">Popular</button>
+  <button class="market-tab" data-market-tab="goals">Goals</button>
+  <button class="market-tab" data-market-tab="halves">Halves</button>
+  <button class="market-tab" data-market-tab="handicaps">Handicaps</button>
+  <button class="market-tab" data-market-tab="goalscorers">Goalscorers</button>
+  <button class="market-tab" data-market-tab="corners">Corners &amp; Cards</button>
 </div>
-          <div class="market-card">
+          <div class="market-card market-panel" data-market-panel="popular">
   <h3>Match Result</h3>
   <div class="odds-row">
     <button class="odd-btn">1 <strong>1.85</strong></button>
@@ -150,7 +150,70 @@
     <button class="odd-btn">Over 2.5 <strong>1.90</strong></button>
     <button class="odd-btn">Under 2.5 <strong>1.90</strong></button>
   </div>
-          </div>
+</div>
+
+<div class="market-card market-panel" data-market-panel="goals" hidden>
+  <h3>Total Goals</h3>
+  <div class="odds-row">
+    <button class="odd-btn">Over 1.5 <strong>1.35</strong></button>
+    <button class="odd-btn">Under 1.5 <strong>3.10</strong></button>
+  </div>
+  <h3>Over / Under 3.5 Goals</h3>
+  <div class="odds-row">
+    <button class="odd-btn">Over 3.5 <strong>2.60</strong></button>
+    <button class="odd-btn">Under 3.5 <strong>1.45</strong></button>
+  </div>
+</div>
+
+<div class="market-card market-panel" data-market-panel="halves" hidden>
+  <h3>First Half Result</h3>
+  <div class="odds-row">
+    <button class="odd-btn">1 <strong>2.20</strong></button>
+    <button class="odd-btn">X <strong>2.10</strong></button>
+    <button class="odd-btn">2 <strong>4.50</strong></button>
+  </div>
+  <h3>Second Half - Both Teams to Score</h3>
+  <div class="odds-row">
+    <button class="odd-btn">Yes <strong>2.10</strong></button>
+    <button class="odd-btn">No <strong>1.65</strong></button>
+  </div>
+</div>
+
+<div class="market-card market-panel" data-market-panel="handicaps" hidden>
+  <h3>Asian Handicap</h3>
+  <div class="odds-row">
+    <button class="odd-btn">Arsenal -0.5 <strong>1.90</strong></button>
+    <button class="odd-btn">Brighton +0.5 <strong>1.90</strong></button>
+  </div>
+  <h3>European Handicap</h3>
+  <div class="odds-row">
+    <button class="odd-btn">Arsenal -1 <strong>2.50</strong></button>
+    <button class="odd-btn">Draw -1 <strong>3.40</strong></button>
+    <button class="odd-btn">Brighton +1 <strong>2.80</strong></button>
+  </div>
+</div>
+
+<div class="market-card market-panel" data-market-panel="goalscorers" hidden>
+  <h3>First Goalscorer</h3>
+  <div class="odds-row">
+    <button class="odd-btn">Arsenal Player <strong>2.80</strong></button>
+    <button class="odd-btn">Brighton Player <strong>3.50</strong></button>
+    <button class="odd-btn">No Goalscorer <strong>9.00</strong></button>
+  </div>
+</div>
+
+<div class="market-card market-panel" data-market-panel="corners" hidden>
+  <h3>Total Corners</h3>
+  <div class="odds-row">
+    <button class="odd-btn">Over 9.5 <strong>1.85</strong></button>
+    <button class="odd-btn">Under 9.5 <strong>1.95</strong></button>
+  </div>
+  <h3>Total Cards</h3>
+  <div class="odds-row">
+    <button class="odd-btn">Over 3.5 <strong>1.80</strong></button>
+    <button class="odd-btn">Under 3.5 <strong>2.00</strong></button>
+  </div>
+</div>
         </section>
 
      <section class="section" id="bets">
