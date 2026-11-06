@@ -861,3 +861,10 @@ button {
     display: block;
   }
 }
+
+@media (max-width: 650px) {
+  #slip-selections[hidden],
+  #slip-selections[style*="display: none"] {
+    display: none !important;
+  }
+}
