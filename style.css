@@ -878,3 +878,64 @@ button {
     overflow-y: auto;
   }
 }
+
+/* SPORTS HOME - COMPETITIONS & SPORTS */
+
+.competition-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.competition-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: 0.2s ease;
+}
+
+.competition-item:hover {
+  border-color: var(--green);
+  background: var(--surface-2);
+}
+
+.competition-item strong {
+  margin-left: auto;
+  color: var(--green);
+  font-size: 20px;
+}
+
+.sports-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.sports-grid a {
+  padding: 18px 10px;
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-weight: 700;
+  transition: 0.2s ease;
+}
+
+.sports-grid a:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+@media (max-width: 650px) {
+  .competition-list {
+    grid-template-columns: 1fr;
+  }
+
+  .sports-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
