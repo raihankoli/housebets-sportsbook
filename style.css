@@ -562,7 +562,6 @@ button {
   color: #687582;
   font-weight: 400;
 }
-}
 
 #stake:focus {
   border-color: var(--green);
@@ -770,4 +769,42 @@ button {
 
 .market-card h3:first-child {
   margin-top: 0;
+}
+
+/* MOBILE BET SLIP */
+@media (max-width: 650px) {
+  .right-panel {
+    position: fixed;
+    bottom: 65px;
+    left: 0;
+    right: 0;
+    z-index: 19;
+    margin: 0;
+    padding: 0 10px;
+  }
+
+  #bet-slip {
+    padding: 12px;
+    border-radius: 12px 12px 0 0;
+    background: #17212b;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.35);
+  }
+
+  #bet-slip > h3 {
+    font-size: 14px;
+  }
+
+  #slip-selections {
+    min-height: auto;
+    padding: 10px;
+  }
+
+  #slip-details {
+    max-height: 45vh;
+    overflow-y: auto;
+  }
+
+  body {
+    padding-bottom: 90px;
+  }
 }
