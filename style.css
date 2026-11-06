@@ -784,13 +784,13 @@ button {
   }
 
   #bet-slip {
-  padding: 8px 12px;
-  border-radius: 12px 12px 0 0;
-  background: #17212b;
-  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.35);
-  max-height: 90px;
-  overflow-y: auto;
-}
+    padding: 12px;
+    border-radius: 12px 12px 0 0;
+    background: #17212b;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.35);
+    max-height: 45vh;
+    overflow-y: auto;
+  }
 
   #bet-slip > h3 {
     font-size: 14px;
@@ -798,16 +798,21 @@ button {
 
   #slip-selections {
     min-height: auto;
+    height: auto;
     padding: 10px;
   }
 
   #slip-details {
-    max-height: 45vh;
+    max-height: 35vh;
     overflow-y: auto;
   }
 
+  #bets {
+    padding-bottom: 320px;
+  }
+
   body {
-    padding-bottom: 90px;
+    padding-bottom: 100px;
   }
 }
 
@@ -844,34 +849,5 @@ button {
     display: block;
     font-size: 10px;
     white-space: nowrap;
-  }
-}
-
-@media (max-width: 650px) {
-  .right-panel {
-    z-index: 19;
-  }
-
-  #bets {
-    padding-bottom: 320px;
-  }
-}
-
-@media (max-width: 650px) {
-  #bet-slip {
-    max-height: 45vh;
-    overflow-y: auto;
-  }
-
-  #slip-selections {
-    min-height: auto !important;
-    height: auto !important;
-    padding: 10px !important;
-  }
-
-  #slip-selections > span,
-  #slip-selections > p,
-  #slip-selections > small {
-    display: block !important;
   }
 }
