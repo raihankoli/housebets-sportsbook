@@ -320,6 +320,7 @@ slipToggle.addEventListener("click", () => {
     betMessage.textContent = "Demo bet placed successfully!";
 
     selection = null;
+    betSlip.classList.remove("expanded");
     oddsChanged = false;
     acceptNewOdds = false;
     suspended = false;
