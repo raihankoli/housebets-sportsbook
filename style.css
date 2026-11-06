@@ -858,20 +858,20 @@ button {
 }
 
 @media (max-width: 650px) {
+  #bet-slip {
+    max-height: 45vh;
+    overflow-y: auto;
+  }
+
   #slip-selections {
-    min-height: 0 !important;
+    min-height: auto !important;
     height: auto !important;
-    padding: 4px 8px !important;
+    padding: 10px !important;
   }
 
   #slip-selections > span,
   #slip-selections > p,
   #slip-selections > small {
-    display: none !important;
-  }
-
-  #bet-slip {
-    max-height: 55px;
-    overflow: hidden;
+    display: block !important;
   }
 }
