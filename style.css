@@ -868,3 +868,30 @@ button {
     display: none !important;
   }
 }
+
+@media (max-width: 650px) {
+  #slip-toggle {
+    width: 100%;
+    padding: 12px;
+    background: #243746;
+    color: white;
+    border: none;
+    border-radius: 12px 12px 0 0;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  #bet-slip:not(.expanded) {
+    max-height: 60px;
+    overflow: hidden;
+  }
+
+  #bet-slip:not(.expanded) #slip-details {
+    display: none !important;
+  }
+
+  #bet-slip.expanded {
+    max-height: 45vh;
+    overflow-y: auto;
+  }
+}
