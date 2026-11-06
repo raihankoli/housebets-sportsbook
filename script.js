@@ -6,13 +6,14 @@ document.addEventListener("DOMContentLoaded", () => {
 const betSlip = document.getElementById("bet-slip");
 
 slipToggle.addEventListener("click", () => {
-  betSlip.classList.toggle("expanded");
+  const isExpanded = betSlip.classList.toggle("expanded");
 
-  if (!selection && betSlip.classList.contains("expanded")) {
-    slipSelections.hidden = false;
-    slipSelections.style.display = "block";
+  if (!selection) {
+    slipSelections.hidden = !isExpanded;
+    slipSelections.style.display = isExpanded ? "block" : "none";
   }
 });
+  
   const slipSelections = document.getElementById("slip-selections");
   const slipDetails = document.getElementById("slip-details");
   const slipList = document.getElementById("slip-list");
