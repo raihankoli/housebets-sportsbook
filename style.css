@@ -784,11 +784,13 @@ button {
   }
 
   #bet-slip {
-    padding: 12px;
-    border-radius: 12px 12px 0 0;
-    background: #17212b;
-    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.35);
-  }
+  padding: 8px 12px;
+  border-radius: 12px 12px 0 0;
+  background: #17212b;
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.35);
+  max-height: 90px;
+  overflow-y: auto;
+}
 
   #bet-slip > h3 {
     font-size: 14px;
