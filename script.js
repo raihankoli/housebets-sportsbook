@@ -7,6 +7,11 @@ const betSlip = document.getElementById("bet-slip");
 
 slipToggle.addEventListener("click", () => {
   betSlip.classList.toggle("expanded");
+
+  if (!selection && betSlip.classList.contains("expanded")) {
+    slipSelections.hidden = false;
+    slipSelections.style.display = "block";
+  }
 });
   const slipSelections = document.getElementById("slip-selections");
   const slipDetails = document.getElementById("slip-details");
