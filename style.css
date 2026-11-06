@@ -853,16 +853,6 @@ button {
 }
 
 @media (max-width: 650px) {
-  #slip-selections:not([style*="display: none"]) {
-    display: none !important;
-  }
-
-  #slip-details:not([hidden]) {
-    display: block;
-  }
-}
-
-@media (max-width: 650px) {
   #slip-selections[hidden],
   #slip-selections[style*="display: none"] {
     display: none !important;
