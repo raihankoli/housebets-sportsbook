@@ -1,6 +1,6 @@
 
 document.addEventListener("DOMContentLoaded", () => {
-  const oddsButtons = document.querySelectorAll(".odd-btn");
+  const oddsButtons = [...document.querySelectorAll(".odd-btn")];
   const slipCount = document.getElementById("slip-count");
   const slipSelections = document.getElementById("slip-selections");
   const slipDetails = document.getElementById("slip-details");
@@ -17,14 +17,16 @@ document.addEventListener("DOMContentLoaded", () => {
   let selection = null;
   let placedBets = [];
   let settledBets = [];
+  let oddsChanged = false;
+  let acceptNewOdds = false;
+  let suspended = false;
 
   // Market tabs
   document.querySelectorAll(".market-tab").forEach(tab => {
     tab.addEventListener("click", () => {
-      document.querySelectorAll(".market-tab").forEach(item => {
-        item.classList.remove("active");
-      });
-
+      document.querySelectorAll(".market-tab").forEach(item =>
+        item.classList.remove("active")
+      );
       tab.classList.add("active");
 
       document.querySelectorAll(".market-panel").forEach(panel => {
@@ -37,20 +39,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // My Bets tabs
   document.querySelectorAll(".bet-tab").forEach(tab => {
     tab.addEventListener("click", () => {
-      document.querySelectorAll(".bet-tab").forEach(item => {
-        item.classList.remove("active");
-      });
+      document.querySelectorAll(".bet-tab").forEach(item =>
+        item.classList.remove("active")
+      );
 
       tab.classList.add("active");
+      openBetsList.hidden = tab.dataset.tab !== "open";
+      settledBetsList.hidden = tab.dataset.tab !== "settled";
 
-      if (tab.dataset.tab === "open") {
-        openBetsList.hidden = false;
-        settledBetsList.hidden = true;
-      } else {
-        openBetsList.hidden = true;
-        settledBetsList.hidden = false;
-        renderSettledBets();
-      }
+      if (tab.dataset.tab === "settled") renderSettledBets();
     });
   });
 
@@ -59,42 +56,54 @@ document.addEventListener("DOMContentLoaded", () => {
     link.addEventListener("click", () => {
       document.querySelectorAll(".nav-item, .mobile-nav a")
         .forEach(item => item.classList.remove("active"));
-
       link.classList.add("active");
     });
   });
 
+  // Read market and outcome from an odds button
+  function getButtonData(button) {
+    const odds = Number(button.querySelector("strong").textContent);
+    const outcome = button.childNodes[0].textContent.trim();
+    const card = button.closest(".market-card");
+    const rows = card ? [...card.querySelectorAll(".odds-row")] : [];
+    const headings = card ? [...card.querySelectorAll("h3")] : [];
+    const rowIndex = rows.indexOf(button.closest(".odds-row"));
+
+    return {
+      match: "Arsenal vs Brighton",
+      market: headings[rowIndex]?.textContent.trim() || "Match Winner",
+      outcome,
+      odds
+    };
+  }
+
   // Odds selection
   oddsButtons.forEach(button => {
     button.addEventListener("click", () => {
-      const odds = Number(button.querySelector("strong").textContent);
-      const outcome = button.childNodes[0].textContent.trim();
+      if (button.dataset.suspended === "true") return;
 
-      const marketCard = button.closest(".market-card");
-      let market = "Match Winner";
+      const next = getButtonData(button);
 
-      if (marketCard) {
-        const rows = [...marketCard.querySelectorAll(".odds-row")];
-        const headings = [...marketCard.querySelectorAll("h3")];
-        const rowIndex = rows.indexOf(button.closest(".odds-row"));
-
-        market = headings[rowIndex]
-          ? headings[rowIndex].textContent.trim()
-          : "Match Market";
+      if (
+        selection &&
+        selection.market === next.market &&
+        selection.outcome === next.outcome &&
+        selection.odds !== next.odds
+      ) {
+        oddsChanged = true;
+        acceptNewOdds = false;
+      } else {
+        oddsChanged = false;
+        acceptNewOdds = false;
       }
+
+      suspended = false;
+      selection = next;
 
       oddsButtons.forEach(item => item.classList.remove("selected"));
       button.classList.add("selected");
 
-      selection = {
-        match: "Arsenal vs Brighton",
-        market,
-        outcome,
-        odds
-      };
-
       betMessage.textContent = "";
-      oddsChangeMessage.textContent = "";
       updateSlip();
     });
   });
@@ -108,30 +117,75 @@ document.addEventListener("DOMContentLoaded", () => {
     slipSelections.style.display = "none";
     slipDetails.hidden = false;
 
+    let warning = "";
+
+    if (oddsChanged && !acceptNewOdds) {
+      warning = `
+        <p class="odds-warning">
+          Odds have changed. Accept the new odds to continue.
+        </p>
+        <button type="button" id="accept-odds">
+          Accept New Odds (${selection.odds.toFixed(2)})
+        </button>
+      `;
+    }
+
+    if (suspended) {
+      warning = `
+        <p class="odds-warning">
+          This selection is currently suspended.
+        </p>
+        <button type="button" id="resume-selection">
+          Resume Selection
+        </button>
+      `;
+    }
+
+    oddsChangeMessage.innerHTML = warning;
+    oddsChangeMessage.style.display = warning ? "block" : "none";
+
     slipList.innerHTML = `
       <div class="slip-selection">
         <strong>${selection.match}</strong>
         <p>${selection.market}: ${selection.outcome}</p>
         <strong>Odds: ${selection.odds.toFixed(2)}</strong>
-        <button id="remove-selection" type="button">
-          ✕ Remove
-        </button>
+        <button id="remove-selection" type="button">✕ Remove</button>
       </div>
     `;
 
-    document.getElementById("remove-selection")
-      .addEventListener("click", () => {
-        selection = null;
-        slipCount.textContent = "0";
-        slipSelections.hidden = false;
-        slipSelections.style.display = "";
-        slipDetails.hidden = true;
-        stakeInput.value = "";
-        potentialReturn.textContent = "0.00 USDT";
-        betMessage.textContent = "";
+    document.getElementById("remove-selection").addEventListener("click", () => {
+      selection = null;
+      oddsChanged = false;
+      acceptNewOdds = false;
+      suspended = false;
+      slipCount.textContent = "0";
+      slipSelections.hidden = false;
+      slipSelections.style.display = "";
+      slipDetails.hidden = true;
+      stakeInput.value = "";
+      potentialReturn.textContent = "0.00 USDT";
+      oddsChangeMessage.innerHTML = "";
+      oddsChangeMessage.style.display = "none";
+      oddsButtons.forEach(item => item.classList.remove("selected"));
+    });
 
-        oddsButtons.forEach(item => item.classList.remove("selected"));
+    const acceptButton = document.getElementById("accept-odds");
+    if (acceptButton) {
+      acceptButton.addEventListener("click", () => {
+        acceptNewOdds = true;
+        oddsChanged = false;
+        updateSlip();
+        calculateReturn();
       });
+    }
+
+    const resumeButton = document.getElementById("resume-selection");
+    if (resumeButton) {
+      resumeButton.addEventListener("click", () => {
+        suspended = false;
+        updateSlip();
+      });
+    }
 
     calculateReturn();
   }
@@ -154,12 +208,8 @@ document.addEventListener("DOMContentLoaded", () => {
           <p>Odds: ${bet.odds.toFixed(2)}</p>
           <p>Stake: ${bet.stake.toFixed(2)} USDT</p>
           <strong>Potential Return: ${bet.potentialReturn.toFixed(2)} USDT</strong>
-          <button class="settle-bet" data-index="${index}">
-            Settle Demo Bet
-          </button>
-          <button class="cashout-bet" data-index="${index}">
-            Cash Out Demo
-          </button>
+          <button class="settle-bet" data-index="${index}">Settle Demo Bet</button>
+          <button class="cashout-bet" data-index="${index}">Cash Out Demo</button>
         </div>
       `).join("");
     }
@@ -168,9 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelectorAll(".settle-bet").forEach(button => {
       button.addEventListener("click", () => {
-        const index = Number(button.dataset.index);
-        const bet = placedBets.splice(index, 1)[0];
-
+        const bet = placedBets.splice(Number(button.dataset.index), 1)[0];
         if (bet) {
           bet.status = "Settled";
           settledBets.push(bet);
@@ -182,9 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelectorAll(".cashout-bet").forEach(button => {
       button.addEventListener("click", () => {
-        const index = Number(button.dataset.index);
-        const bet = placedBets.splice(index, 1)[0];
-
+        const bet = placedBets.splice(Number(button.dataset.index), 1)[0];
         if (bet) {
           bet.status = "Cashed Out";
           settledBets.push(bet);
@@ -222,7 +268,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Calculate Potential Return
   function calculateReturn() {
     const stake = Number(stakeInput.value);
-
     const result = selection && stake > 0
       ? (stake * selection.odds).toFixed(2)
       : "0.00";
@@ -243,20 +288,30 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    if (suspended) {
+      betMessage.textContent = "This selection is suspended.";
+      return;
+    }
+
+    if (oddsChanged && !acceptNewOdds) {
+      betMessage.textContent = "Please accept the new odds first.";
+      return;
+    }
+
     placedBets.push({
-      match: selection.match,
-      market: selection.market,
-      outcome: selection.outcome,
-      odds: selection.odds,
+      ...selection,
       stake,
       potentialReturn: stake * selection.odds
     });
 
     renderOpenBets();
-
     betMessage.textContent = "Demo bet placed successfully!";
 
     selection = null;
+    oddsChanged = false;
+    acceptNewOdds = false;
+    suspended = false;
+
     slipCount.textContent = "0";
     slipSelections.hidden = false;
     slipSelections.style.display = "";
@@ -264,8 +319,65 @@ document.addEventListener("DOMContentLoaded", () => {
     slipList.innerHTML = "";
     stakeInput.value = "";
     potentialReturn.textContent = "0.00 USDT";
-    oddsChangeMessage.textContent = "";
-
+    oddsChangeMessage.innerHTML = "";
+    oddsChangeMessage.style.display = "none";
     oddsButtons.forEach(item => item.classList.remove("selected"));
   });
+
+  // Demo controls for testing odds and suspension
+  function addDemoControls() {
+    const section = document.getElementById("match-details");
+    if (!section) return;
+
+    if (document.getElementById("demo-market-controls")) return;
+
+    const controls = document.createElement("div");
+    controls.id = "demo-market-controls";
+    controls.className = "market-card";
+    controls.innerHTML = `
+      <h3>Demo Market Controls</h3>
+      <p>Test odds movement and suspended markets.</p>
+      <button type="button" id="change-demo-odds">Change Selected Odds</button>
+      <button type="button" id="suspend-demo-selection">Suspend Selection</button>
+    `;
+
+    section.appendChild(controls);
+
+    document.getElementById("change-demo-odds").addEventListener("click", () => {
+      if (!selection) {
+        betMessage.textContent = "Select odds first to test odds movement.";
+        return;
+      }
+
+      const button = oddsButtons.find(item => {
+        const data = getButtonData(item);
+        return data.market === selection.market &&
+          data.outcome === selection.outcome;
+      });
+
+      if (!button) return;
+
+      const strong = button.querySelector("strong");
+      const oldOdds = Number(strong.textContent);
+      const newOdds = Number((oldOdds + 0.10).toFixed(2));
+
+      strong.textContent = newOdds.toFixed(2);
+      selection.odds = newOdds;
+      oddsChanged = true;
+      acceptNewOdds = false;
+      updateSlip();
+    });
+
+    document.getElementById("suspend-demo-selection").addEventListener("click", () => {
+      if (!selection) {
+        betMessage.textContent = "Select odds first to test suspension.";
+        return;
+      }
+
+      suspended = true;
+      updateSlip();
+    });
+  }
+
+  addDemoControls();
 });
