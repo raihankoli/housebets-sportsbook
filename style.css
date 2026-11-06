@@ -853,13 +853,6 @@ button {
 }
 
 @media (max-width: 650px) {
-  #slip-selections[hidden],
-  #slip-selections[style*="display: none"] {
-    display: none !important;
-  }
-}
-
-@media (max-width: 650px) {
   #slip-toggle {
     width: 100%;
     padding: 12px;
