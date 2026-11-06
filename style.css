@@ -808,3 +808,39 @@ button {
     padding-bottom: 90px;
   }
 }
+
+/* MOBILE MATCH DETAILS FIX */
+@media (max-width: 650px) {
+  #match-details .match-teams {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 6px;
+    padding: 18px 0;
+  }
+
+  #match-details .team {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+    font-size: 12px;
+  }
+
+  #match-details .match-score {
+    text-align: center;
+    min-width: 90px;
+  }
+
+  #match-details .match-score strong {
+    display: block;
+    font-size: 18px;
+    white-space: nowrap;
+  }
+
+  #match-details .match-score span {
+    display: block;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+}
