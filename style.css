@@ -844,3 +844,13 @@ button {
     white-space: nowrap;
   }
 }
+
+@media (max-width: 650px) {
+  .right-panel {
+    z-index: 19;
+  }
+
+  #bets {
+    padding-bottom: 320px;
+  }
+}
