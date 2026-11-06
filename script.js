@@ -2,6 +2,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   const oddsButtons = [...document.querySelectorAll(".odd-btn")];
   const slipCount = document.getElementById("slip-count");
+  const slipToggle = document.getElementById("slip-toggle");
+const betSlip = document.getElementById("bet-slip");
+
+slipToggle.addEventListener("click", () => {
+  betSlip.classList.toggle("expanded");
+});
   const slipSelections = document.getElementById("slip-selections");
   const slipDetails = document.getElementById("slip-details");
   const slipList = document.getElementById("slip-list");
