@@ -414,35 +414,54 @@ slipToggle.addEventListener("click", () => {
     });
   });
       // Open Match Details
-  const matchDetails = document.getElementById("match-details");
-  const arsenalCard = document.querySelector(
-    '#football .match-card[data-league="premier-league"]'
-  );
+const matchDetails = document.getElementById("match-details");
+const footballSection = document.getElementById("football");
 
-  if (arsenalCard && matchDetails) {
-    arsenalCard.addEventListener("click", event => {
-      if (event.target.closest(".odd-btn")) return;
+if (footballSection && matchDetails) {
+  footballSection.addEventListener("click", event => {
+    const matchCard = event.target.closest(".match-card");
 
-      matchDetails.hidden = false;
-      addDemoControls();
+    if (!matchCard || !footballSection.contains(matchCard)) return;
+    if (event.target.closest(".odd-btn")) return;
 
-      document.querySelectorAll(".market-tab").forEach(tab => {
-        tab.classList.toggle(
-          "active",
-          tab.dataset.marketTab === "popular"
-        );
+    const teams = matchCard.querySelectorAll(".match-teams .team");
+    const detailTeams = matchDetails.querySelectorAll(".panel-card .match-teams .team");
+
+    if (teams.length >= 2 && detailTeams.length >= 2) {
+      teams.forEach((team, index) => {
+        const badge = team.querySelector(".team-badge");
+        const badgeText = badge ? badge.textContent.trim() : "";
+        const teamName = team.textContent.replace(badgeText, "").trim();
+
+        const detailBadge = detailTeams[index].querySelector(".team-badge");
+        const detailName = detailTeams[index].querySelector("h3");
+
+        if (detailBadge) detailBadge.textContent = badgeText;
+        if (detailName) detailName.textContent = teamName;
       });
+    }
 
-      document.querySelectorAll(".market-panel").forEach(panel => {
-        panel.hidden = panel.dataset.marketPanel !== "popular";
-      });
+    const league = matchCard.querySelector(".competition");
+    const detailLeague = matchDetails.querySelector(".match-league-badge");
 
-      matchDetails.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
+    if (league && detailLeague) {
+      detailLeague.textContent = league.textContent.trim();
+    }
+
+    matchDetails.hidden = false;
+    addDemoControls();
+
+    document.querySelectorAll(".market-tab").forEach(tab => {
+      tab.classList.toggle("active", tab.dataset.marketTab === "popular");
     });
-  }
 
-  
-});
+    document.querySelectorAll(".market-panel").forEach(panel => {
+      panel.hidden = panel.dataset.marketPanel !== "popular";
+    });
+
+    matchDetails.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+}
