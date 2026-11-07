@@ -413,8 +413,7 @@ slipToggle.addEventListener("click", () => {
       });
     });
   });
-
-      // Open Match Details
+  // Open Match Details
   const matchDetails = document.getElementById("match-details");
   const arsenalCard = document.querySelector(
     '#football .match-card[data-league="premier-league"]'
@@ -435,6 +434,11 @@ slipToggle.addEventListener("click", () => {
 
       document.querySelectorAll(".market-panel").forEach(panel => {
         panel.hidden = panel.dataset.marketPanel !== "popular";
+      });
+
+      matchDetails.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
       });
     });
   }
