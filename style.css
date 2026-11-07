@@ -1120,15 +1120,18 @@ button {
 }
 
 .match-league-badge {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: fit-content;
-  padding: 5px 10px;
-  margin-bottom: 16px;
-  background: #1a202b;
-  border: 1px solid #29313e;
-  border-radius: 6px;
+  margin: 0 auto 20px;
+  padding: 7px 14px;
+  background: rgba(168, 237, 72, 0.08);
+  border: 1px solid rgba(168, 237, 72, 0.22);
+  border-radius: 20px;
   color: #a8ed48;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.8px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
 }
