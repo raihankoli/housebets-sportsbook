@@ -435,11 +435,6 @@ slipToggle.addEventListener("click", () => {
       document.querySelectorAll(".market-panel").forEach(panel => {
         panel.hidden = panel.dataset.marketPanel !== "popular";
       });
-
-      matchDetails.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
     });
   }
   addDemoControls();
