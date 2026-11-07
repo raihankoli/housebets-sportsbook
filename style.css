@@ -1137,10 +1137,3 @@ button {
   text-transform: uppercase;
 }
 
-/* FIXED MATCH SCOREBOARD */
-#match-details .panel-card {
-  position: sticky;
-  top: 60px;
-  z-index: 9;
-  background: #121720;
-}
