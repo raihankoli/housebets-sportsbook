@@ -438,6 +438,5 @@ slipToggle.addEventListener("click", () => {
       });
     });
   }
-  
   addDemoControls();
 });
