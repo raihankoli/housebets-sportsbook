@@ -425,10 +425,10 @@ slipToggle.addEventListener("click", () => {
       if (event.target.closest(".odd-btn")) return;
 
       matchDetails.hidden = false;
-      window.scrollTo({
-  top: matchDetails.getBoundingClientRect().top + window.scrollY - 80,
-  behavior: "smooth"
-     });
+      matchDetails.scrollIntoView({
+  behavior: "smooth",
+  block: "start"
+});
     });
   }
   
