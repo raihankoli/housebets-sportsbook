@@ -1118,3 +1118,17 @@ button {
     font-size: 24px;
   }
 }
+
+.match-league-badge {
+  display: inline-block;
+  width: fit-content;
+  padding: 5px 10px;
+  margin-bottom: 16px;
+  background: #1a202b;
+  border: 1px solid #29313e;
+  border-radius: 6px;
+  color: #a8ed48;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+}
