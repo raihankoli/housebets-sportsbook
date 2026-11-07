@@ -81,12 +81,15 @@ slipToggle.addEventListener("click", () => {
     const headings = card ? [...card.querySelectorAll("h3")] : [];
     const rowIndex = rows.indexOf(button.closest(".odds-row"));
 
-    return {
-  match: [...document.querySelectorAll("#match-details .panel-card .match-teams .team h3")].map(team => team.textContent.trim()).join(" vs ") || "Arsenal vs Brighton",
-  market: headings[rowIndex]?.textContent.trim() || "Match Winner",
-  outcome,
-  odds
-};
+        return {
+      match: [...document.querySelectorAll("#match-details .panel-card .match-teams .team h3")]
+        .map(team => team.textContent.trim())
+        .join(" vs ") || "Arsenal vs Brighton",
+      market: headings[rowIndex]?.textContent.trim() || "Match Winner",
+      outcome,
+      odds
+    };
+  }
 
   // Odds selection
   oddsButtons.forEach(button => {
