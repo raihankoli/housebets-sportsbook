@@ -980,3 +980,105 @@ button {
     flex-shrink: 0;
   }
 }
+
+/* HOUSEBETS FOOTBALL CARD POLISH */
+
+.match-card {
+  background: linear-gradient(145deg, #121720, #1a202b);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
+  transition: 0.2s ease;
+}
+
+.match-card:hover {
+  border-color: var(--green);
+  transform: translateY(-2px);
+}
+
+.competition {
+  display: inline-block;
+  padding: 6px 9px;
+  background: rgba(168, 237, 72, 0.08);
+  color: var(--green);
+  border-radius: 5px;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.match-teams {
+  gap: 10px;
+  padding: 25px 0;
+}
+
+.team {
+  min-width: 0;
+  font-size: 13px;
+}
+
+.team-badge {
+  flex-shrink: 0;
+  background: var(--surface);
+  font-weight: 800;
+}
+
+.match-footer {
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.odd-btn {
+  min-height: 50px;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.odd-btn:hover {
+  border-color: var(--green);
+  transform: translateY(-1px);
+}
+
+.odd-btn.selected {
+  background: var(--green-dark);
+  border-color: var(--green);
+  color: white;
+}
+
+@media (max-width: 650px) {
+  .match-card {
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .match-teams {
+    padding: 20px 0;
+  }
+
+  .team {
+    font-size: 11px;
+    gap: 7px;
+  }
+
+  .team-badge {
+    width: 34px;
+    height: 34px;
+    font-size: 9px;
+  }
+
+  .odds-row {
+    gap: 6px;
+  }
+
+  .odd-btn {
+    min-height: 46px;
+    gap: 7px;
+    font-size: 11px;
+  }
+
+  .odd-btn strong {
+    font-size: 13px;
+  }
+}
