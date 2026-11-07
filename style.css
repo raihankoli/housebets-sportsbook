@@ -939,3 +939,44 @@ button {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* FOOTBALL LEAGUE FILTERS */
+
+.football-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0;
+}
+
+.football-filter {
+  padding: 10px 16px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.football-filter:hover,
+.football-filter.active {
+  background: var(--green);
+  color: #07110c;
+  border-color: var(--green);
+}
+
+@media (max-width: 650px) {
+  .football-filters {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .football-filter {
+    flex-shrink: 0;
+  }
+}
