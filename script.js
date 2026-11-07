@@ -392,5 +392,27 @@ slipToggle.addEventListener("click", () => {
     });
   }
 
+    // Football League Filters
+  const footballFilters = document.querySelectorAll(".football-filter");
+  const footballCards = document.querySelectorAll("#football .match-card");
+
+  footballFilters.forEach(filter => {
+    filter.addEventListener("click", () => {
+      footballFilters.forEach(item => item.classList.remove("active"));
+      filter.classList.add("active");
+
+      const selectedLeague = filter.dataset.filter;
+
+      footballCards.forEach(card => {
+        const cardLeague = card.dataset.league;
+
+        card.style.display =
+          selectedLeague === "all" || cardLeague === selectedLeague
+            ? ""
+            : "none";
+      });
+    });
+  });
+  
   addDemoControls();
 });
