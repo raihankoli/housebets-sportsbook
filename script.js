@@ -424,6 +424,7 @@ slipToggle.addEventListener("click", () => {
       if (event.target.closest(".odd-btn")) return;
 
       matchDetails.hidden = false;
+      addDemoControls();
 
       document.querySelectorAll(".market-tab").forEach(tab => {
         tab.classList.toggle(
@@ -443,5 +444,5 @@ slipToggle.addEventListener("click", () => {
     });
   }
 
-  addDemoControls();
+  
 });
