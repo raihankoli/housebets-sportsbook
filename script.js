@@ -413,6 +413,24 @@ slipToggle.addEventListener("click", () => {
       });
     });
   });
+
+    // Open Match Details
+  const matchDetails = document.getElementById("match-details");
+  const arsenalCard = document.querySelector(
+    '#football .match-card[data-league="premier-league"]'
+  );
+
+  if (arsenalCard && matchDetails) {
+    arsenalCard.addEventListener("click", event => {
+      if (event.target.closest(".odd-btn")) return;
+
+      matchDetails.hidden = false;
+      matchDetails.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+  }
   
   addDemoControls();
 });
