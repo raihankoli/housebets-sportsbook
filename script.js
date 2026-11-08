@@ -504,8 +504,7 @@ function updateMatchMarkets(team1, team2, matchIndex) {
           button.dataset.baseOdds = odds.textContent.trim();
         }
 
-        const baseOdds = Number(button.dataset.baseOdds);
-        odds.textContent = (baseOdds + matchIndex * 0.07).toFixed(2);
+        odds.textContent = baseOdds.toFixed(2);
       }
     });
   });
