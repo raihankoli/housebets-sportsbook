@@ -511,6 +511,7 @@ function updateMatchMarkets(team1, team2, matchIndex) {
 }
 
 function openMatchDetails(matchElement) {
+  let matchOdds = [];
   let team1 = "";
   let team2 = "";
   let badge1 = "";
@@ -519,7 +520,10 @@ function openMatchDetails(matchElement) {
   let isLive = matchElement.classList.contains("live-match-row");
 
   if (isLive) {
-    const teams = matchElement.querySelectorAll(".live-teams span");
+  matchOdds = [...matchElement.querySelectorAll(".live-market button strong")]
+    .map(odds => odds.textContent.trim());
+
+  const teams = matchElement.querySelectorAll(".live-teams span");
 
     if (teams.length < 2) return;
 
@@ -532,7 +536,14 @@ function openMatchDetails(matchElement) {
     league = matchElement.closest(".live-competition")
       ?.querySelector(".live-competition-heading span")
       ?.textContent.trim() || "LIVE MATCH";
+  
   } else {
+    const resultRow = matchElement.querySelector(".odds-row");
+
+matchOdds = resultRow
+  ? [...resultRow.querySelectorAll(".odd-btn strong")]
+      .map(odds => odds.textContent.trim())
+  : [];
     const teams = matchElement.querySelectorAll(".match-teams .team");
 
     if (teams.length < 2) return;
@@ -609,6 +620,21 @@ function openMatchDetails(matchElement) {
     ...document.querySelectorAll("#live .live-match-row, #football .match-card")
   ];
 
+ const resultButtons = matchDetails.querySelector(
+  '.market-panel[data-market-panel="popular"] .odds-row'
+)?.querySelectorAll(".odd-btn");
+
+if (resultButtons && matchOdds.length >= 3) {
+  resultButtons.forEach((button, index) => {
+    const odds = button.querySelector("strong");
+
+    if (odds) {
+      odds.textContent = matchOdds[index];
+      button.dataset.baseOdds = matchOdds[index];
+    }
+  });
+}
+  
   const matchIndex = Math.max(0, allMatches.indexOf(matchElement));
 
   updateMatchMarkets(team1, team2, matchIndex);
