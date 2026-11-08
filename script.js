@@ -410,26 +410,74 @@ function getButtonData(button) {
   }
 
     // Football League Filters
-  const footballFilters = document.querySelectorAll(".football-filter");
-  const footballCards = document.querySelectorAll("#football .match-card");
+const footballFilters = document.querySelectorAll(".football-filter");
+const footballCards = document.querySelectorAll("#football .match-card");
 
-  footballFilters.forEach(filter => {
-    filter.addEventListener("click", () => {
-      footballFilters.forEach(item => item.classList.remove("active"));
-      filter.classList.add("active");
+footballFilters.forEach(filter => {
+  filter.addEventListener("click", () => {
+    footballFilters.forEach(item => item.classList.remove("active"));
+    filter.classList.add("active");
 
-      const selectedLeague = filter.dataset.filter;
+    const selectedLeague = filter.dataset.filter;
 
-      footballCards.forEach(card => {
-        const cardLeague = card.dataset.league;
+    footballCards.forEach(card => {
+      const cardLeague = card.dataset.league;
 
-        card.style.display =
-          selectedLeague === "all" || cardLeague === selectedLeague
-            ? ""
-            : "none";
-      });
+      card.style.display =
+        selectedLeague === "all" || cardLeague === selectedLeague
+          ? ""
+          : "none";
     });
   });
+});
+
+
+// Live Sport Filters and Search
+const liveFilters = document.querySelectorAll("#live-sport-filters button");
+const liveCompetitions = document.querySelectorAll("#live .live-competition");
+const liveSearch = document.getElementById("live-search");
+const startingSoon = document.querySelector("#live .starting-soon");
+
+function filterLiveMatches() {
+  const activeFilter = document.querySelector("#live-sport-filters button.active");
+  const selectedSport = activeFilter?.dataset.sport || "all";
+  const searchText = liveSearch?.value.toLowerCase().trim() || "";
+
+  let visibleCount = 0;
+
+  liveCompetitions.forEach(competition => {
+    const sportMatches =
+      selectedSport === "all" ||
+      competition.dataset.sport === selectedSport;
+
+    const textMatches =
+      competition.textContent.toLowerCase().includes(searchText);
+
+    const show = sportMatches && textMatches;
+
+    competition.style.display = show ? "" : "none";
+
+    if (show) visibleCount++;
+  });
+
+  if (startingSoon) {
+    startingSoon.hidden = visibleCount > 0;
+  }
+}
+
+liveFilters.forEach(button => {
+  button.addEventListener("click", () => {
+    liveFilters.forEach(item => item.classList.remove("active"));
+    button.classList.add("active");
+    filterLiveMatches();
+  });
+});
+
+if (liveSearch) {
+  liveSearch.addEventListener("input", filterLiveMatches);
+}
+
+filterLiveMatches();
       // Open Match Details
 const matchDetails = document.getElementById("match-details");
 const footballSection = document.getElementById("football");
