@@ -478,56 +478,175 @@ if (liveSearch) {
 }
 
 filterLiveMatches();
-      // Open Match Details
+     
+  // Open Match Details
 const matchDetails = document.getElementById("match-details");
 const footballSection = document.getElementById("football");
+const liveSection = document.getElementById("live");
 
-if (footballSection && matchDetails) {
-  footballSection.addEventListener("click", event => {
-    const matchCard = event.target.closest(".match-card");
+function updateMatchMarkets(team1, team2, matchIndex) {
+  const marketPanels = matchDetails.querySelectorAll(".market-panel");
 
-    if (!matchCard || !footballSection.contains(matchCard)) return;
-    if (event.target.closest(".odd-btn")) return;
+  marketPanels.forEach(panel => {
+    panel.querySelectorAll(".odd-btn").forEach(button => {
+      const label = button.childNodes[0];
 
-    const teams = matchCard.querySelectorAll(".match-teams .team");
-    const detailTeams = matchDetails.querySelectorAll(".panel-card .match-teams .team");
+      if (label && label.nodeType === Node.TEXT_NODE) {
+        label.textContent = label.textContent
+          .replaceAll("Arsenal", team1)
+          .replaceAll("Brighton", team2);
+      }
 
-    if (teams.length >= 2 && detailTeams.length >= 2) {
-      teams.forEach((team, index) => {
-        const badge = team.querySelector(".team-badge");
-        const badgeText = badge ? badge.textContent.trim() : "";
-        const teamName = team.textContent.replace(badgeText, "").trim();
+      const odds = button.querySelector("strong");
 
-        const detailBadge = detailTeams[index].querySelector(".team-badge");
-        const detailName = detailTeams[index].querySelector("h3");
+      if (odds) {
+        if (!button.dataset.baseOdds) {
+          button.dataset.baseOdds = odds.textContent.trim();
+        }
 
-        if (detailBadge) detailBadge.textContent = badgeText;
-        if (detailName) detailName.textContent = teamName;
-      });
-    }
-
-    const league = matchCard.querySelector(".competition");
-    const detailLeague = matchDetails.querySelector(".match-league-badge");
-
-    if (league && detailLeague) {
-      detailLeague.textContent = league.textContent.trim();
-    }
-
-    matchDetails.hidden = false;
-    addDemoControls();
-
-    document.querySelectorAll(".market-tab").forEach(tab => {
-      tab.classList.toggle("active", tab.dataset.marketTab === "popular");
-    });
-
-    document.querySelectorAll(".market-panel").forEach(panel => {
-      panel.hidden = panel.dataset.marketPanel !== "popular";
-    });
-
-    matchDetails.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
+        const baseOdds = Number(button.dataset.baseOdds);
+        odds.textContent = (baseOdds + matchIndex * 0.07).toFixed(2);
+      }
     });
   });
 }
+
+function openMatchDetails(matchElement) {
+  let team1 = "";
+  let team2 = "";
+  let badge1 = "";
+  let badge2 = "";
+  let league = "";
+  let isLive = matchElement.classList.contains("live-match-row");
+
+  if (isLive) {
+    const teams = matchElement.querySelectorAll(".live-teams span");
+
+    if (teams.length < 2) return;
+
+    team1 = teams[0].textContent.trim();
+    team2 = teams[1].textContent.trim();
+
+    badge1 = team1.slice(0, 3).toUpperCase();
+    badge2 = team2.slice(0, 3).toUpperCase();
+
+    league = matchElement.closest(".live-competition")
+      ?.querySelector(".live-competition-heading span")
+      ?.textContent.trim() || "LIVE MATCH";
+  } else {
+    const teams = matchElement.querySelectorAll(".match-teams .team");
+
+    if (teams.length < 2) return;
+
+    const getTeamName = team => {
+      const badge = team.querySelector(".team-badge");
+      const name = [...team.querySelectorAll("span")]
+        .filter(span => !span.classList.contains("team-badge"))
+        .pop();
+
+      return {
+        name: name?.textContent.trim() || "",
+        badge: badge?.textContent.trim() || ""
+      };
+    };
+
+    const first = getTeamName(teams[0]);
+    const second = getTeamName(teams[1]);
+
+    team1 = first.name;
+    team2 = second.name;
+    badge1 = first.badge;
+    badge2 = second.badge;
+
+    league = matchElement.querySelector(".competition")
+      ?.textContent.trim() || "FOOTBALL";
+  }
+
+  const detailTeams = matchDetails.querySelectorAll(
+    ".panel-card .match-teams .team"
+  );
+
+  if (detailTeams.length >= 2) {
+    detailTeams[0].querySelector(".team-badge").textContent = badge1;
+    detailTeams[0].querySelector("h3").textContent = team1;
+
+    detailTeams[1].querySelector(".team-badge").textContent = badge2;
+    detailTeams[1].querySelector("h3").textContent = team2;
+  }
+
+  const detailLeague = matchDetails.querySelector(".match-league-badge");
+
+  if (detailLeague) {
+    detailLeague.textContent = league;
+  }
+
+  const scoreBox = matchDetails.querySelector(".match-score");
+
+  if (scoreBox) {
+    const status = scoreBox.querySelector(".match-status");
+    const score = scoreBox.querySelector("strong");
+    const clock = scoreBox.querySelector(".match-clock");
+
+    if (isLive) {
+      const scores = matchElement.querySelectorAll(".live-score span");
+      const liveClock = matchElement.querySelector(".live-clock");
+
+      if (status) status.textContent = "LIVE";
+      if (score && scores.length >= 2) {
+        score.textContent =
+          `${scores[0].textContent.trim()} - ${scores[1].textContent.trim()}`;
+      }
+      if (clock) {
+        clock.textContent = liveClock?.textContent.trim() || "LIVE";
+      }
+    } else {
+      if (status) status.textContent = "UPCOMING";
+      if (score) score.textContent = "0 - 0";
+      if (clock) clock.textContent = "Kick-off: 20:00";
+    }
+  }
+
+  const allMatches = [
+    ...document.querySelectorAll("#live .live-match-row, #football .match-card")
+  ];
+
+  const matchIndex = Math.max(0, allMatches.indexOf(matchElement));
+
+  updateMatchMarkets(team1, team2, matchIndex);
+
+  matchDetails.hidden = false;
+  addDemoControls();
+
+  document.querySelectorAll(".market-tab").forEach(tab => {
+    tab.classList.toggle(
+      "active",
+      tab.dataset.marketTab === "popular"
+    );
   });
+
+  document.querySelectorAll(".market-panel").forEach(panel => {
+    panel.hidden = panel.dataset.marketPanel !== "popular";
+  });
+
+  matchDetails.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
+[footballSection, liveSection].forEach(section => {
+  if (!section || !matchDetails) return;
+
+  section.addEventListener("click", event => {
+    if (event.target.closest(".odd-btn")) return;
+
+    const matchElement = event.target.closest(
+      section.id === "football" ? ".match-card" : ".live-match-row"
+    );
+
+    if (!matchElement || !section.contains(matchElement)) return;
+
+    openMatchDetails(matchElement);
+  });
+});
+   }); 
