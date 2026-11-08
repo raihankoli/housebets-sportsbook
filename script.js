@@ -637,7 +637,6 @@ function openMatchDetails(matchElement) {
   if (!section || !matchDetails) return;
 
   section.addEventListener("click", event => {
-    if (event.target.closest(".odd-btn")) return;
 
     const matchElement = event.target.closest(
       section.id === "football" ? ".match-card" : ".live-match-row"
