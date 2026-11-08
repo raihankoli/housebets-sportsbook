@@ -72,24 +72,39 @@ slipToggle.addEventListener("click", () => {
     });
   });
 
-  // Read market and outcome from an odds button
-  function getButtonData(button) {
-    const odds = Number(button.querySelector("strong").textContent);
-    const outcome = button.childNodes[0].textContent.trim();
-    const card = button.closest(".market-card");
-    const rows = card ? [...card.querySelectorAll(".odds-row")] : [];
-    const headings = card ? [...card.querySelectorAll("h3")] : [];
-    const rowIndex = rows.indexOf(button.closest(".odds-row"));
+ // Read market and outcome from an odds button
+function getButtonData(button) {
+  const odds = Number(button.querySelector("strong").textContent);
+  const outcome = button.childNodes[0].textContent.trim();
 
-        return {
-      match: [...document.querySelectorAll("#match-details .panel-card .match-teams .team h3")]
-        .map(team => team.textContent.trim())
-        .join(" vs ") || "Arsenal vs Brighton",
-      market: headings[rowIndex]?.textContent.trim() || "Match Winner",
+  const liveMatch = button.closest(".live-match-row");
+
+  if (liveMatch) {
+    const teams = [...liveMatch.querySelectorAll(".live-teams span")]
+      .map(team => team.textContent.trim());
+
+    return {
+      match: teams.join(" vs "),
+      market: liveMatch.querySelector(".live-market > span:first-child")?.textContent.trim() || "Match Result",
       outcome,
       odds
     };
   }
+
+  const card = button.closest(".market-card");
+  const rows = card ? [...card.querySelectorAll(".odds-row")] : [];
+  const headings = card ? [...card.querySelectorAll("h3")] : [];
+  const rowIndex = rows.indexOf(button.closest(".odds-row"));
+
+  return {
+    match: [...document.querySelectorAll("#match-details .panel-card .match-teams .team h3")]
+      .map(team => team.textContent.trim())
+      .join(" vs ") || "Arsenal vs Brighton",
+    market: headings[rowIndex]?.textContent.trim() || "Match Winner",
+    outcome,
+    odds
+  };
+}
 
   // Odds selection
   oddsButtons.forEach(button => {
