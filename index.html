@@ -55,12 +55,105 @@
           </div>
           <div class="welcome-ball">⚽</div>
         </section>
+<section class="section" id="live">
+  <div class="section-heading">
+    <h2><span class="live-dot"></span> Live now</h2>
+    <span>3 matches</span>
+  </div>
 
-        <section class="section" id="live">
-          <div class="section-heading">
-            <h2><span class="live-dot"></span> Live now</h2>
-            <a href="#live">View all →</a>
-          </div>
+  <div class="live-search">
+    <input type="search" id="live-search" placeholder="Search teams, players or leagues">
+  </div>
+
+  <div class="live-sport-filters" id="live-sport-filters">
+    <button class="active" data-sport="all">All 3</button>
+    <button data-sport="soccer">⚽ Soccer 3</button>
+    <button data-sport="tennis">🎾 Tennis 0</button>
+    <button data-sport="basketball">🏀 Basketball 0</button>
+    <button data-sport="baseball">⚾ Baseball 0</button>
+    <button data-sport="american-football">🏈 American Football 0</button>
+    <button data-sport="esports">🎮 Esports 0</button>
+  </div>
+
+  <div class="live-competition" data-sport="soccer" data-competition="premier-league">
+    <div class="live-competition-heading">
+      <span>🏴 Premier League</span>
+      <span>2 matches</span>
+    </div>
+
+    <div class="live-match-row">
+      <div class="live-match-info">
+        <span class="live-label">LIVE</span>
+        <span class="live-clock">52'</span>
+        <div class="live-teams">
+          <span>Arsenal</span>
+          <span>Brighton</span>
+        </div>
+        <div class="live-score">
+          <span>1</span>
+          <span>0</span>
+        </div>
+      </div>
+      <div class="live-market">
+        <span>Match Result</span>
+        <button>Arsenal <strong>1.30</strong></button>
+        <button>Draw <strong>4.60</strong></button>
+        <button>Brighton <strong>11.00</strong></button>
+      </div>
+    </div>
+
+    <div class="live-match-row">
+      <div class="live-match-info">
+        <span class="live-label">LIVE</span>
+        <span class="live-clock">HT</span>
+        <div class="live-teams">
+          <span>Aston Villa</span>
+          <span>Fulham</span>
+        </div>
+        <div class="live-score">
+          <span>0</span>
+          <span>0</span>
+        </div>
+      </div>
+      <div class="live-market">
+        <span>Match Result</span>
+        <button>Aston Villa <strong>2.25</strong></button>
+        <button>Draw <strong>2.90</strong></button>
+        <button>Fulham <strong>3.60</strong></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="live-competition" data-sport="soccer" data-competition="la-liga">
+    <div class="live-competition-heading">
+      <span>🇪🇸 LaLiga</span>
+      <span>1 match</span>
+    </div>
+
+    <div class="live-match-row">
+      <div class="live-match-info">
+        <span class="live-label">LIVE</span>
+        <span class="live-clock">37'</span>
+        <div class="live-teams">
+          <span>Atlético Madrid</span>
+          <span>Sevilla</span>
+        </div>
+        <div class="live-score">
+          <span>1</span>
+          <span>0</span>
+        </div>
+      </div>
+      <div class="live-market">
+        <span class="suspended-label">🔒 Suspended</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="starting-soon">
+    <h3>Starting soon</h3>
+    <p>More matches are coming up. Stay tuned.</p>
+  </div>
+</section>
 
           <div class="empty-state">
             <div class="empty-icon">◉</div>
