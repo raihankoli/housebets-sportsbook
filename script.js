@@ -800,3 +800,4 @@ if (homeSearch && homeSearchResults) {
       });
   });
 }
+});
