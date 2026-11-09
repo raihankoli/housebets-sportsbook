@@ -1336,3 +1336,32 @@ button {
 #live .empty-state {
   display: none !important;
 }
+
+/* SPORTS HOME SEARCH */
+.home-search-section {
+  margin-bottom: 22px;
+}
+
+.home-search {
+  width: 100%;
+}
+
+.home-search input {
+  width: 100%;
+  padding: 15px 16px;
+  background: #121d26;
+  border: 1px solid #263b48;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.home-search input:focus {
+  border-color: #28c76f;
+}
+
+#home-search-results {
+  margin-top: 12px;
+}
