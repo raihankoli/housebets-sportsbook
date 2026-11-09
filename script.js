@@ -730,3 +730,34 @@ if (resultButtons && matchOdds.length >= 3) {
     });
   }
    }); 
+/* HOME SEARCH RESULTS */
+#home-search-results {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#home-search-results[hidden] {
+  display: none;
+}
+
+.home-search-result {
+  width: 100%;
+  padding: 14px;
+  text-align: left;
+  background: #121d26;
+  color: #fff;
+  border: 1px solid #263b48;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.home-search-result:active {
+  border-color: #a8f044;
+}
+
+#home-search-results p {
+  color: #aab5c0;
+  padding: 12px;
+}
