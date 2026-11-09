@@ -674,59 +674,90 @@ if (resultButtons && matchOdds.length >= 3) {
   });
 });
      // Sports Home Search
-  const homeSearch = document.getElementById("home-search");
-  const homeSearchResults = document.getElementById("home-search-results");
+const homeSearch = document.getElementById("home-search");
+const homeSearchResults = document.getElementById("home-search-results");
 
-  if (homeSearch && homeSearchResults) {
-    homeSearch.addEventListener("input", () => {
-      const query = homeSearch.value.trim().toLowerCase();
+if (homeSearch && homeSearchResults) {
+  homeSearch.addEventListener("input", () => {
+    const query = homeSearch.value.trim().toLowerCase();
 
-      if (!query) {
-        homeSearchResults.hidden = true;
-        homeSearchResults.innerHTML = "";
-        return;
-      }
+    if (!query) {
+      homeSearchResults.hidden = true;
+      homeSearchResults.innerHTML = "";
+      return;
+    }
 
-      const matches = [
-        ...document.querySelectorAll(
-          "#football .match-card, #live .live-match-row"
-        )
-      ];
+    const matches = [
+      ...document.querySelectorAll("#football .match-card"),
+      ...document.querySelectorAll("#live .live-match-row")
+    ].filter(match =>
+      match.textContent.toLowerCase().includes(query)
+    );
 
-      const marketNames = [
-        ...document.querySelectorAll("#match-details .market-panel h3")
-      ].map(item => item.textContent.trim());
+    homeSearchResults.hidden = false;
 
-      const marketMatch = marketNames.some(name =>
-        name.toLowerCase().includes(query)
-      );
+    if (matches.length === 0) {
+      homeSearchResults.innerHTML =
+        `<p>No matching matches found.</p>`;
+      return;
+    }
 
-      const results = matches.filter(match =>
-        match.textContent.toLowerCase().includes(query)
-      );
+    homeSearchResults.innerHTML = matches.map((match, index) => {
+      const live = match.classList.contains("live-match-row");
 
-      homeSearchResults.hidden = false;
+      let teamNames = [];
 
-      if (results.length > 0) {
-        homeSearchResults.innerHTML = results.map((match, index) => `
-          <button type="button" class="home-search-result" data-result-index="${index}">
-            ${match.textContent.trim().replace(/\s+/g, " ").slice(0, 100)}
-          </button>
-        `).join("");
-      } else if (marketMatch) {
-        homeSearchResults.innerHTML =
-          `<p>Market found: ${query}</p>`;
+      if (live) {
+        teamNames = [...match.querySelectorAll(".live-teams span")]
+          .map(team => team.textContent.trim());
       } else {
-        homeSearchResults.innerHTML =
-          `<p>No matching results found.</p>`;
+        teamNames = [...match.querySelectorAll(".match-teams .team")]
+          .map(team => [...team.querySelectorAll("span")]
+            .filter(span => !span.classList.contains("team-badge"))
+            .map(span => span.textContent.trim())
+            .join(" "));
       }
 
-      homeSearchResults.querySelectorAll(".home-search-result")
-        .forEach((button, index) => {
-          button.addEventListener("click", () => {
-            openMatchDetails(results[index]);
-          });
+      const league = live
+        ? match.closest(".live-competition")
+            ?.querySelector(".live-competition-heading span")
+            ?.textContent.trim() || "LIVE"
+        : match.querySelector(".competition")?.textContent.trim() || "FOOTBALL";
+
+      const score = live
+        ? [...match.querySelectorAll(".live-score span")]
+            .map(item => item.textContent.trim()).join(" - ")
+        : "";
+
+      const clock = live
+        ? match.querySelector(".live-clock")?.textContent.trim() || ""
+        : "";
+
+      return `
+        <button type="button" class="home-search-result"
+          data-search-index="${index}">
+          <div class="search-result-top">
+            <span>${league}</span>
+            <span class="${live ? "search-live" : "search-upcoming"}">
+              ${live ? "LIVE" : "UPCOMING"}
+            </span>
+          </div>
+          <div class="search-result-teams">
+            <strong>${teamNames[0] || ""}</strong>
+            <span>VS</span>
+            <strong>${teamNames[1] || ""}</strong>
+          </div>
+          ${live ? `<div class="search-result-score">${score} · ${clock}</div>` : ""}
+        </button>
+      `;
+    }).join("");
+
+    homeSearchResults.querySelectorAll(".home-search-result")
+      .forEach((button, index) => {
+        button.addEventListener("click", () => {
+          openMatchDetails(matches[index]);
         });
-    });
-  }
+      });
+  });
+}
    }); 
