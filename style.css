@@ -1397,3 +1397,40 @@ button {
   color: #aab5c0;
   padding: 12px;
 }
+.search-result-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  color: #9aaab5;
+  font-size: 11px;
+}
+
+.search-live {
+  color: #28c76f;
+  font-weight: 700;
+}
+
+.search-upcoming {
+  color: #a8f044;
+  font-weight: 700;
+}
+
+.search-result-teams {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.search-result-teams span {
+  color: #71818d;
+  font-size: 11px;
+}
+
+.search-result-score {
+  margin-top: 10px;
+  color: #aab5c0;
+  font-size: 12px;
+}
