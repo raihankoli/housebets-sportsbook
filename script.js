@@ -673,4 +673,60 @@ if (resultButtons && matchOdds.length >= 3) {
     openMatchDetails(matchElement);
   });
 });
+     // Sports Home Search
+  const homeSearch = document.getElementById("home-search");
+  const homeSearchResults = document.getElementById("home-search-results");
+
+  if (homeSearch && homeSearchResults) {
+    homeSearch.addEventListener("input", () => {
+      const query = homeSearch.value.trim().toLowerCase();
+
+      if (!query) {
+        homeSearchResults.hidden = true;
+        homeSearchResults.innerHTML = "";
+        return;
+      }
+
+      const matches = [
+        ...document.querySelectorAll(
+          "#football .match-card, #live .live-match-row"
+        )
+      ];
+
+      const marketNames = [
+        ...document.querySelectorAll("#match-details .market-panel h3")
+      ].map(item => item.textContent.trim());
+
+      const marketMatch = marketNames.some(name =>
+        name.toLowerCase().includes(query)
+      );
+
+      const results = matches.filter(match =>
+        match.textContent.toLowerCase().includes(query)
+      );
+
+      homeSearchResults.hidden = false;
+
+      if (results.length > 0) {
+        homeSearchResults.innerHTML = results.map((match, index) => `
+          <button type="button" class="home-search-result" data-result-index="${index}">
+            ${match.textContent.trim().replace(/\s+/g, " ").slice(0, 100)}
+          </button>
+        `).join("");
+      } else if (marketMatch) {
+        homeSearchResults.innerHTML =
+          `<p>Market found: ${query}</p>`;
+      } else {
+        homeSearchResults.innerHTML =
+          `<p>No matching results found.</p>`;
+      }
+
+      homeSearchResults.querySelectorAll(".home-search-result")
+        .forEach((button, index) => {
+          button.addEventListener("click", () => {
+            openMatchDetails(results[index]);
+          });
+        });
+    });
+  }
    }); 
