@@ -828,3 +828,6 @@ if (homeSearch && homeSearchResults) {
       }
     });
   });
+  });
+}
+});
