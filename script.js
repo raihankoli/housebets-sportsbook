@@ -818,13 +818,21 @@ if (homeSearch && homeSearchResults) {
       if (allMatches.length > 0 && marketName) {
         openMatchDetails(allMatches[0]);
 
-        const marketTab = document.querySelector(
-  '#match-details .market-tab[data-market-tab="goals"]'
-);
+        const marketPanel = [...document.querySelectorAll("#match-details .market-panel")]
+  .find(panel =>
+    [...panel.querySelectorAll("h3")].some(h3 =>
+      h3.textContent.trim() === marketName
+    )
+  );
 
-        if (marketTab) {
-          marketTab.click();
-        }
+if (marketPanel) {
+  const tabName = marketPanel.dataset.marketPanel;
+  const marketTab = document.querySelector(
+    `#match-details .market-tab[data-market-tab="${tabName}"]`
+  );
+
+  if (marketTab) marketTab.click();
+}
       }
     });
   });
