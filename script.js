@@ -825,9 +825,8 @@ const tabName =
   name.includes("goal") ? "goals" :
   name.includes("half") ? "halves" :
   name.includes("handicap") ? "handicaps" :
-  name.includes("corner") || name.includes("card") ? "corners-cards" :
+  name.includes("corner") || name.includes("card") ? "corners" :
   "popular";
-
 const marketTab = document.querySelector(
   `#match-details .market-tab[data-market-tab="${tabName}"]`
 );
