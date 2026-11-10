@@ -1434,3 +1434,30 @@ button {
   color: #aab5c0;
   font-size: 12px;
 }
+
+/* LIVE COMPETITION FILTERS */
+.live-competition-filters {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin: 12px 0 18px;
+  padding-bottom: 4px;
+}
+
+.live-competition-filters button {
+  flex-shrink: 0;
+  padding: 9px 14px;
+  background: #121d26;
+  color: #aab5c0;
+  border: 1px solid #263b48;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.live-competition-filters button.active {
+  background: #a8f044;
+  color: #101820;
+  border-color: #a8f044;
+}
