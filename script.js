@@ -369,6 +369,7 @@ function getButtonData(button) {
       <p>Test odds movement and suspended markets.</p>
       <button type="button" id="change-demo-odds">Change Selected Odds</button>
       <button type="button" id="suspend-demo-selection">Suspend Selection</button>
+      <button type="button" id="fail-demo-bet">Fail Selected Bet</button>
     `;
 
     section.appendChild(controls);
@@ -407,6 +408,15 @@ function getButtonData(button) {
       suspended = true;
       updateSlip();
     });
+  document.getElementById("fail-demo-bet").addEventListener("click", () => {
+  if (!selection) {
+    betMessage.textContent = "Select odds first to test bet failure.";
+    return;
+  }
+
+  betSlip.classList.add("expanded");
+  betMessage.textContent = "Bet failed. Please try again.";
+});
   }
 
     // Football League Filters
