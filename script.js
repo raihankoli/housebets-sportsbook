@@ -811,13 +811,22 @@ if (homeSearch && homeSearchResults) {
       });
 
     homeSearchResults.querySelectorAll(".market-search-result")
-      .forEach(button => {
-        button.addEventListener("click", () => {
-          if (allMatches.length > 0) {
-            openMatchDetails(allMatches[0]);
-          }
-        });
-      });
+  .forEach(button => {
+    button.addEventListener("click", () => {
+      const marketName = button.querySelector("strong")?.textContent.trim();
+
+      if (allMatches.length > 0 && marketName) {
+        openMatchDetails(allMatches[0]);
+
+        const marketTab = [
+          ...document.querySelectorAll("#match-details button")
+        ].find(tab =>
+          tab.textContent.trim().toLowerCase() === marketName.toLowerCase()
+        );
+
+        if (marketTab) {
+          marketTab.click();
+        }
+      }
+    });
   });
-}
-});
