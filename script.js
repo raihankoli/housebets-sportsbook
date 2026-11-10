@@ -663,15 +663,15 @@ if (resultButtons && matchOdds.length >= 3) {
   addDemoControls();
 
   document.querySelectorAll(".market-tab").forEach(tab => {
-    tab.classList.toggle(
-      "active",
-      tab.dataset.marketTab === "popular"
-    );
-  });
+  tab.classList.toggle(
+    "active",
+    tab.dataset.marketTab === "popular"
+  );
+});
 
-  document.querySelectorAll(".market-panel").forEach(panel => {
-    panel.hidden = panel.dataset.marketPanel !== "popular";
-  });
+document.querySelectorAll(".market-panel").forEach(panel => {
+  panel.hidden = panel.dataset.marketPanel !== "popular";
+});
 
   matchDetails.scrollIntoView({
     behavior: "smooth",
@@ -818,11 +818,9 @@ if (homeSearch && homeSearchResults) {
       if (allMatches.length > 0 && marketName) {
         openMatchDetails(allMatches[0]);
 
-        const marketTab = [
-          ...document.querySelectorAll("#match-details button")
-        ].find(tab =>
-          tab.textContent.trim().toLowerCase() === marketName.toLowerCase()
-        );
+        const marketTab = document.querySelector(
+  '#match-details .market-tab[data-market-tab="goals"]'
+);
 
         if (marketTab) {
           marketTab.click();
