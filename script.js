@@ -818,21 +818,21 @@ if (homeSearch && homeSearchResults) {
       if (allMatches.length > 0 && marketName) {
         openMatchDetails(allMatches[0]);
 
-        const marketPanel = [...document.querySelectorAll("#match-details .market-panel")]
-  .find(panel =>
-    [...panel.querySelectorAll("h3")].some(h3 =>
-      h3.textContent.trim() === marketName
-    )
-  );
+        const name = marketName.toLowerCase();
 
-if (marketPanel) {
-  const tabName = marketPanel.dataset.marketPanel;
-  const marketTab = document.querySelector(
-    `#match-details .market-tab[data-market-tab="${tabName}"]`
-  );
+const tabName =
+  name.includes("goalscorer") ? "goalscorers" :
+  name.includes("goal") ? "goals" :
+  name.includes("half") ? "halves" :
+  name.includes("handicap") ? "handicaps" :
+  name.includes("corner") || name.includes("card") ? "corners-cards" :
+  "popular";
 
-  if (marketTab) marketTab.click();
-}
+const marketTab = document.querySelector(
+  `#match-details .market-tab[data-market-tab="${tabName}"]`
+);
+
+if (marketTab) marketTab.click();
       }
     });
   });
