@@ -435,12 +435,17 @@ footballFilters.forEach(filter => {
 // Live Sport Filters and Search
 const liveFilters = document.querySelectorAll("#live-sport-filters button");
 const liveCompetitions = document.querySelectorAll("#live .live-competition");
+const competitionFilters = document.querySelectorAll("#live-competition-filters button");
 const liveSearch = document.getElementById("live-search");
 const startingSoon = document.querySelector("#live .starting-soon");
 
 function filterLiveMatches() {
   const activeFilter = document.querySelector("#live-sport-filters button.active");
   const selectedSport = activeFilter?.dataset.sport || "all";
+
+  const activeCompetition = document.querySelector("#live-competition-filters button.active");
+  const selectedCompetition = activeCompetition?.dataset.competition || "all";
+
   const searchText = liveSearch?.value.toLowerCase().trim() || "";
 
   let visibleCount = 0;
@@ -450,10 +455,14 @@ function filterLiveMatches() {
       selectedSport === "all" ||
       competition.dataset.sport === selectedSport;
 
+    const competitionMatches =
+      selectedCompetition === "all" ||
+      competition.dataset.competition === selectedCompetition;
+
     const textMatches =
       competition.textContent.toLowerCase().includes(searchText);
 
-    const show = sportMatches && textMatches;
+    const show = sportMatches && competitionMatches && textMatches;
 
     competition.style.display = show ? "" : "none";
 
@@ -465,6 +474,7 @@ function filterLiveMatches() {
   }
 }
 
+// Sport Filter
 liveFilters.forEach(button => {
   button.addEventListener("click", () => {
     liveFilters.forEach(item => item.classList.remove("active"));
@@ -473,6 +483,16 @@ liveFilters.forEach(button => {
   });
 });
 
+// Competition Filter
+competitionFilters.forEach(button => {
+  button.addEventListener("click", () => {
+    competitionFilters.forEach(item => item.classList.remove("active"));
+    button.classList.add("active");
+    filterLiveMatches();
+  });
+});
+
+// Live Search
 if (liveSearch) {
   liveSearch.addEventListener("input", filterLiveMatches);
 }
