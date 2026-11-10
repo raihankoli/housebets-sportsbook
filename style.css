@@ -1499,3 +1499,21 @@ button {
   color: #101820;
   border-color: #a8f044;
 }
+
+#home-search-results .home-search-result {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  text-align: left;
+  background: #121d26 !important;
+  color: #fff !important;
+  border: 1px solid #263b48 !important;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#home-search-results .home-search-result:active {
+  background: #1d303b !important;
+  border-color: #a8f044 !important;
+}
